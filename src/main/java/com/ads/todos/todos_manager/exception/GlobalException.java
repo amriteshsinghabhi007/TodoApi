@@ -15,7 +15,7 @@ public class GlobalException {
 
     @ExceptionHandler({NullPointerException.class})
     public ResponseEntity<String> HandleGlobleException(NullPointerException ex) {
-        this.logger.error("it's null poniter exception from global handler");
+        logger.error("it's null poniter exception from global handler");
         return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

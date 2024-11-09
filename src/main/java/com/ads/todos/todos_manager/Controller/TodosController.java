@@ -34,38 +34,38 @@ public class TodosController {
 
     @PostMapping
     public ResponseEntity<Todo> createTodoHandler(@RequestBody Todo todo) {
-        int id = this.random.nextInt(10);
+        int id = random.nextInt(10);
         todo.setId(id);
         Date currentDate = new Date();
-        this.logger.info("currentDate:- " + String.valueOf(currentDate));
+        logger.info("currentDate:- " + String.valueOf(currentDate));
         todo.setAddedDate(currentDate);
-        this.logger.info("newDate:- " + String.valueOf(todo.getNewDate()));
-        this.logger.info("Inside createTodoHandler");
-        Todo todo1 = this.todoService.createTodo(todo);
+        logger.info("newDate:- " + String.valueOf(todo.getNewDate()));
+        logger.info("Inside createTodoHandler");
+        Todo todo1 = todoService.createTodo(todo);
         return new ResponseEntity(todo1, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Todo>> getAllTodos() {
-        List<Todo> getall = this.todoService.getAll();
+        List<Todo> getall = todoService.getAll();
         return new ResponseEntity(getall, HttpStatus.OK);
     }
 
     @GetMapping({"/{todoId}"})
     public ResponseEntity<Todo> getSingleTodo(@PathVariable int todoId) {
-        Todo singletodo = this.todoService.getSingle(todoId);
+        Todo singletodo = todoService.getSingle(todoId);
         return ResponseEntity.ok(singletodo);
     }
 
     @PutMapping({"/{todoId}"})
     public ResponseEntity<Todo> getUpdatedTodo(@RequestBody Todo newtodo, @PathVariable int todoId) {
-        Todo updatedTodo = this.todoService.UpdateTodo(newtodo, todoId);
+        Todo updatedTodo = todoService.UpdateTodo(newtodo, todoId);
         return ResponseEntity.ok(updatedTodo);
     }
 
     @DeleteMapping({"/{todoId}"})
     public ResponseEntity<String> deleteTodo(@PathVariable int todoId) {
-        this.todoService.delete(todoId);
+        todoService.delete(todoId);
         return ResponseEntity.ok("Successfully Deleted");
     }
 

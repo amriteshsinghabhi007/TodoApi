@@ -19,8 +19,8 @@ public class TodosService {
     }
 
     public Todo createTodo(Todo todo) {
-        this.todos.add(todo);
-        this.logger.info("Todos Request {}", this.todos);
+        todos.add(todo);
+        logger.info("Todos Request {}", this.todos);
         return todo;
     }
 
@@ -29,7 +29,7 @@ public class TodosService {
     }
 
     public Todo getSingle(int todoId) {
-        Todo todo = (Todo)this.todos.stream().filter((t) -> {
+        Todo todo = todos.stream().filter((t) -> {
             return todoId == t.getId();
         }).findAny().orElseThrow(() -> {
             return new ResourceNotFoundEx("Todo not found", HttpStatus.NOT_FOUND);
@@ -38,7 +38,7 @@ public class TodosService {
     }
 
     public Todo UpdateTodo(Todo todo, int todoId) {
-        List<Todo> newUpdateList = (List)this.todos.stream().map((t) -> {
+        List<Todo> newUpdateList = todos.stream().map((t) -> {
             if (todoId == t.getId()) {
                 t.setTitle(todo.getTitle());
                 t.setContent(todo.getContent());
@@ -48,15 +48,15 @@ public class TodosService {
                 return t;
             }
         }).collect(Collectors.toList());
-        this.todos = newUpdateList;
+        todos = newUpdateList;
         todo.setId(todoId);
         return todo;
     }
 
     public void delete(int todoId) {
-        List<Todo> newTodo = (List)this.todos.stream().filter((t) -> {
+        List<Todo> newTodo = todos.stream().filter((t) -> {
             return todoId != t.getId();
         }).collect(Collectors.toList());
-        this.todos = newTodo;
+        todos = newTodo;
     }
 }
