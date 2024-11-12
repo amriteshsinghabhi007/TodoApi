@@ -63,14 +63,4 @@ public class TodosJpaController {
         todoServiceimpl.delete(todoId);
         return ResponseEntity.ok("Successfully Deleted");
     }
-
-    @ExceptionHandler(ResourceNotFoundEx.class)
-    public ResponseEntity<ExceptionResponse> handleResourceException(ResourceNotFoundEx ex) {
-        this.logger.error("{}", ex.getMessage());
-        ExceptionResponse rre = new ExceptionResponse();
-        rre.setMessage(ex.getMessage());
-        rre.setStatus(ex.getStatus());
-        rre.setSuccess(false);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(rre);
-    }
 }
